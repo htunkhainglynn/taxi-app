@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h4>My Ajax and Api Lesson</h4>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Street</th>
+            <th>Quarter</th>
+        </tr>
+        </thead>
+        <tbody id="showDrivers"></tbody>
+    </table>
+</div>
+
+<script src="bootstrap/js/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<script>
+    $(()=>{
+        getDrivers();
+        function getDrivers() {
+            $.ajax({
+                type:"get",
+                url:"drivers_api.php",
+                success:function (res) {
+                    $.each(res,(i,d)=>{
+                        //console.log(d)
+                        $("#showDrivers")
+                            .append('<tr><td>'+d.id+'</td><td class="col-sm-2"><img class="img-thumbnail" src="drivers/'+d.photo+'"></td><td>'+d.driver_name+'</td><td>'+d.phone+'</td><td>'+d.street_name+'</td><td>'+d.quarter_name+'</td></tr>')
+                    })
+                    /*res.map((d)=>{
+                        console.log(d)
+                    })*/
+                },
+                error:function (err) {
+                    console.log(err)
+                }
+            })
+
+        }
+    })
+</script>
+</body>
+</html>
